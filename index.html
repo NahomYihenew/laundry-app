@@ -970,8 +970,15 @@
       new Date(`${b.date}T${b.endTime}`) >= now
     );
     if (mySlot) return `${mySlot.date}T${mySlot.endTime}`;
-    // fallback: 1 hour from now
-    return new Date(now.getTime() + 60 * 60 * 1000).toISOString().slice(0, 16);
+    
+    // find next upcoming slot
+    const nextSlot = bookings
+      .filter(b => b.userName === currentUser.name && new Date(`${b.date}T${b.startTime}`) > now)
+      .sort((a, b) => new Date(`${a.date}T${a.startTime}`) - new Date(`${b.date}T${b.startTime}`))[0];
+    if (nextSlot) return `${nextSlot.date}T${nextSlot.endTime}`;
+
+    // fallback: 30 minutes from now
+    return new Date(now.getTime() + 30 * 60 * 1000).toISOString().slice(0, 16);
   }
 
   // ── RENDER SCHEDULE ────────────────────────────────────
