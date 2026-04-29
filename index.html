@@ -1283,7 +1283,15 @@
 
   // ── MODALS ─────────────────────────────────────────────
   function showReturnModal() { document.getElementById('return-modal').classList.add('show'); }
-  function showConfirmModal() { document.getElementById('confirm-modal').classList.add('show'); }
+  function showConfirmModal() {
+    const now = new Date();
+    const hasBooking = bookings.some(b =>
+      b.userName === currentUser.name &&
+      new Date(`${b.date}T${b.endTime}`) >= now
+    );
+    if (!hasBooking) return showToast('You need a booking to request the key', 'error');
+    document.getElementById('confirm-modal').classList.add('show');
+  }
   function closeModal(id) { document.getElementById(id).classList.remove('show'); }
 
   document.querySelectorAll('.modal-overlay').forEach(el => {
