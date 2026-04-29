@@ -8,8 +8,8 @@
 <style>
   :root {
     --bg: #0e0e11;
-    --surface: #18181f;
-    --card: #1f1f2b;
+    --surface: rgba(24, 24, 31, 0.98);
+    --card: rgba(31, 31, 43, 0.97);
     --accent: #c8f135;
     --accent2: #6c63ff;
     --danger: #ff4f4f;
@@ -23,7 +23,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
   body {
-    background: var(--bg);
+    background: #1a1a2e;
     color: var(--text);
     font-family: 'Syne', sans-serif;
     min-height: 100vh;
@@ -32,6 +32,29 @@
     padding-bottom: 90px;
     position: relative;
     overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 20, 0.75);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Cartoon background */
+  .cartoon-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background: linear-gradient(160deg, #1a1a3e 0%, #0d0d1f 60%, #1a0d2e 100%);
+  }
+
+  .cartoon-bg svg {
+    opacity: 0.35;
   }
 
   .bg-animation {
@@ -43,69 +66,12 @@
     overflow: hidden;
   }
 
-  .bubble {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0;
-    animation: floatUp linear infinite;
+  @keyframes wave {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
   }
 
-  .bubble:nth-child(1)  { width: 18px; height: 18px; left: 8%;  background: radial-gradient(circle at 35% 35%, rgba(200,241,53,0.25), rgba(200,241,53,0.05)); border: 1px solid rgba(200,241,53,0.2); animation-duration: 9s;  animation-delay: 0s;   }
-  .bubble:nth-child(2)  { width: 10px; height: 10px; left: 22%; background: radial-gradient(circle at 35% 35%, rgba(108,99,255,0.25), rgba(108,99,255,0.05)); border: 1px solid rgba(108,99,255,0.2); animation-duration: 12s; animation-delay: 1.5s; }
-  .bubble:nth-child(3)  { width: 24px; height: 24px; left: 38%; background: radial-gradient(circle at 35% 35%, rgba(200,241,53,0.15), rgba(200,241,53,0.03)); border: 1px solid rgba(200,241,53,0.15); animation-duration: 10s; animation-delay: 3s;   }
-  .bubble:nth-child(4)  { width: 14px; height: 14px; left: 55%; background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.1), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.1); animation-duration: 14s; animation-delay: 0.8s; }
-  .bubble:nth-child(5)  { width: 8px;  height: 8px;  left: 70%; background: radial-gradient(circle at 35% 35%, rgba(108,99,255,0.2), rgba(108,99,255,0.04)); border: 1px solid rgba(108,99,255,0.15); animation-duration: 8s;  animation-delay: 2.2s; }
-  .bubble:nth-child(6)  { width: 20px; height: 20px; left: 85%; background: radial-gradient(circle at 35% 35%, rgba(200,241,53,0.2), rgba(200,241,53,0.04)); border: 1px solid rgba(200,241,53,0.15); animation-duration: 11s; animation-delay: 4s;   }
-  .bubble:nth-child(7)  { width: 12px; height: 12px; left: 15%; background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.08), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.08); animation-duration: 13s; animation-delay: 6s;   }
-  .bubble:nth-child(8)  { width: 16px; height: 16px; left: 48%; background: radial-gradient(circle at 35% 35%, rgba(108,99,255,0.15), rgba(108,99,255,0.03)); border: 1px solid rgba(108,99,255,0.12); animation-duration: 10s; animation-delay: 5s;   }
-  .bubble:nth-child(9)  { width: 9px;  height: 9px;  left: 63%; background: radial-gradient(circle at 35% 35%, rgba(200,241,53,0.18), rgba(200,241,53,0.04)); border: 1px solid rgba(200,241,53,0.15); animation-duration: 7s;  animation-delay: 1s;   }
-  .bubble:nth-child(10) { width: 22px; height: 22px; left: 30%; background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.06), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.06); animation-duration: 15s; animation-delay: 7s;   }
-
-  @keyframes floatUp {
-    0%   { bottom: -40px; opacity: 0; transform: translateX(0) scale(1); }
-    10%  { opacity: 1; }
-    50%  { transform: translateX(20px) scale(1.05); }
-    90%  { opacity: 0.6; }
-    100% { bottom: 110%; opacity: 0; transform: translateX(-10px) scale(0.9); }
-  }
-
-  .bg-drum {
-    position: fixed;
-    width: 320px;
-    height: 320px;
-    border-radius: 50%;
-    border: 1px solid rgba(200,241,53,0.04);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: spinSlow 30s linear infinite;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .bg-drum::before {
-    content: '';
-    position: absolute;
-    inset: 20px;
-    border-radius: 50%;
-    border: 1px solid rgba(108,99,255,0.04);
-    animation: spinSlow 20s linear infinite reverse;
-  }
-
-  .bg-drum::after {
-    content: '';
-    position: absolute;
-    inset: 50px;
-    border-radius: 50%;
-    border: 1px dashed rgba(200,241,53,0.03);
-  }
-
-  @keyframes spinSlow {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to   { transform: translate(-50%, -50%) rotate(360deg); }
-  }
-
-  .topbar, #login-screen, #app-screen { position: relative; z-index: 1; }
+  .topbar, #login-screen, #app-screen { position: relative; z-index: 2; }
 
   /* TOP BAR */
   .topbar {
@@ -404,7 +370,7 @@
     max-width: 430px;
     background: var(--surface);
     border-top: 1px solid var(--border);
-    display: flex;
+    display: none;
     padding: 10px 0 20px;
   }
 
@@ -512,7 +478,7 @@
 
   /* PROFILE */
   .profile-card {
-    background: var(--card);
+    background: #1f1f2b;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 24px;
@@ -521,6 +487,18 @@
     align-items: center;
     gap: 10px;
     text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .stat-box {
+    background: #18181f;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
   }
 
   .avatar {
@@ -542,6 +520,14 @@
   .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; width: 100%; }
 
   .stat-box {
+    background: #18181f;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .stat-box {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -558,19 +544,123 @@
 </head>
 <body>
 
-<!-- BACKGROUND ANIMATION -->
-<div class="bg-drum"></div>
-<div class="bg-animation">
-  <div class="bubble"></div>
-  <div class="bubble"></div>
-  <div class="bubble"></div>
-  <div class="bubble"></div>
-  <div class="bubble"></div>
-  <div class="bubble"></div>
-  <div class="bubble"></div>
-  <div class="bubble"></div>
-  <div class="bubble"></div>
-  <div class="bubble"></div>
+<!-- CARTOON BACKGROUND -->
+<div class="cartoon-bg">
+  <svg width="100%" height="100%" viewBox="0 0 430 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <!-- Stars -->
+    <circle cx="40" cy="60" r="2" fill="white" opacity="0.4"/>
+    <circle cx="100" cy="30" r="1.5" fill="white" opacity="0.3"/>
+    <circle cx="200" cy="50" r="2" fill="white" opacity="0.5"/>
+    <circle cx="320" cy="20" r="1.5" fill="white" opacity="0.3"/>
+    <circle cx="390" cy="70" r="2" fill="white" opacity="0.4"/>
+    <circle cx="60" cy="150" r="1.5" fill="white" opacity="0.2"/>
+    <circle cx="380" cy="180" r="2" fill="white" opacity="0.3"/>
+
+    <!-- BIG CARTOON WASHING MACHINE (center) -->
+    <g transform="translate(115, 280)">
+      <!-- Shadow -->
+      <ellipse cx="100" cy="215" rx="90" ry="12" fill="black" opacity="0.2"/>
+      <!-- Body -->
+      <rect x="10" y="20" width="180" height="190" rx="24" fill="#e8f4fd" stroke="#b8d4e8" stroke-width="3"/>
+      <!-- Top panel -->
+      <rect x="10" y="20" width="180" height="50" rx="24" fill="#d0e8f8" stroke="#b8d4e8" stroke-width="3"/>
+      <rect x="10" y="52" width="180" height="18" fill="#d0e8f8"/>
+      <!-- Control buttons -->
+      <circle cx="45" cy="45" r="10" fill="#ff6b6b" stroke="white" stroke-width="2"/>
+      <circle cx="75" cy="45" r="8" fill="#ffd93d" stroke="white" stroke-width="2"/>
+      <circle cx="102" cy="45" r="8" fill="#6bcb77" stroke="white" stroke-width="2"/>
+      <!-- Dial -->
+      <circle cx="155" cy="45" r="16" fill="white" stroke="#b8d4e8" stroke-width="2"/>
+      <circle cx="155" cy="45" r="10" fill="#d0e8f8"/>
+      <line x1="155" y1="30" x2="155" y2="40" stroke="#6c63ff" stroke-width="3" stroke-linecap="round"/>
+
+      <!-- Door outer ring -->
+      <circle cx="100" cy="140" r="68" fill="#1a1a3e" stroke="#b8d4e8" stroke-width="4"/>
+      <!-- Door inner -->
+      <circle cx="100" cy="140" r="58" fill="#0d0d2e" stroke="#6c63ff" stroke-width="2" stroke-dasharray="6 4"/>
+      <!-- Drum inner -->
+      <circle cx="100" cy="140" r="48" fill="#1e3a5f"/>
+      <!-- Drum details -->
+      <circle cx="100" cy="140" r="20" fill="#0d0d2e" stroke="#6c63ff" stroke-width="1.5"/>
+      <circle cx="100" cy="140" r="6" fill="#1a1a3e"/>
+      <line x1="100" y1="92" x2="100" y2="120" stroke="#6c63ff" stroke-width="1.5" opacity="0.4"/>
+      <line x1="100" y1="160" x2="100" y2="188" stroke="#6c63ff" stroke-width="1.5" opacity="0.4"/>
+      <line x1="52" y1="140" x2="80" y2="140" stroke="#6c63ff" stroke-width="1.5" opacity="0.4"/>
+      <line x1="120" y1="140" x2="148" y2="140" stroke="#6c63ff" stroke-width="1.5" opacity="0.4"/>
+
+      <!-- Door handle -->
+      <rect x="158" y="136" width="14" height="8" rx="4" fill="#b8d4e8" stroke="#6c63ff" stroke-width="1.5"/>
+
+      <!-- Legs -->
+      <rect x="35" y="205" width="20" height="15" rx="4" fill="#b8d4e8"/>
+      <rect x="145" y="205" width="20" height="15" rx="4" fill="#b8d4e8"/>
+
+      <!-- Arm waving -->
+      <g style="transform-origin:190px 100px; animation: wave 2s ease-in-out infinite">
+        <path d="M185 100 Q210 80 220 60" stroke="#e8f4fd" stroke-width="8" stroke-linecap="round" fill="none"/>
+        <!-- Hand -->
+        <circle cx="222" cy="57" r="12" fill="#e8f4fd" stroke="#b8d4e8" stroke-width="2"/>
+        <circle cx="218" cy="48" r="5" fill="#e8f4fd" stroke="#b8d4e8" stroke-width="1.5"/>
+        <circle cx="226" cy="46" r="5" fill="#e8f4fd" stroke="#b8d4e8" stroke-width="1.5"/>
+      </g>
+    </g>
+
+    <!-- Small cartoon washing machine (bottom left) -->
+    <g transform="translate(10, 600) scale(0.5)" opacity="0.6">
+      <rect x="10" y="20" width="140" height="150" rx="18" fill="#ffd93d" stroke="#f0c030" stroke-width="3"/>
+      <rect x="10" y="20" width="140" height="40" rx="18" fill="#f0c030"/>
+      <rect x="10" y="48" width="140" height="12" fill="#f0c030"/>
+      <circle cx="35" cy="40" r="8" fill="#ff6b6b" stroke="white" stroke-width="2"/>
+      <circle cx="120" cy="40" r="12" fill="white" stroke="#f0c030" stroke-width="2"/>
+      <circle cx="75" cy="115" r="52" fill="#1a1a3e" stroke="#f0c030" stroke-width="3"/>
+      <circle cx="75" cy="115" r="42" fill="#13131a"/>
+      <circle cx="75" cy="115" r="18" fill="#0d0d2e" stroke="#f0c030" stroke-width="1.5"/>
+      <circle cx="75" cy="115" r="5" fill="#1a1a3e"/>
+    </g>
+
+    <!-- Small cartoon washing machine (bottom right) -->
+    <g transform="translate(280, 650) scale(0.45)" opacity="0.5">
+      <rect x="10" y="20" width="140" height="150" rx="18" fill="#6bcb77" stroke="#4db860" stroke-width="3"/>
+      <rect x="10" y="20" width="140" height="40" rx="18" fill="#4db860"/>
+      <rect x="10" y="48" width="140" height="12" fill="#4db860"/>
+      <circle cx="35" cy="40" r="8" fill="#ffd93d" stroke="white" stroke-width="2"/>
+      <circle cx="120" cy="40" r="12" fill="white" stroke="#4db860" stroke-width="2"/>
+      <circle cx="75" cy="115" r="52" fill="#1a1a3e" stroke="#4db860" stroke-width="3"/>
+      <circle cx="75" cy="115" r="42" fill="#13131a"/>
+      <circle cx="75" cy="115" r="18" fill="#0d0d2e" stroke="#4db860" stroke-width="1.5"/>
+      <circle cx="75" cy="115" r="5" fill="#1a1a3e"/>
+    </g>
+
+    <!-- Floating bubbles -->
+    <circle cx="30" cy="400" r="18" fill="none" stroke="#c8f135" stroke-width="2" opacity="0.3">
+      <animate attributeName="cy" values="400;200;400" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="400" cy="500" r="12" fill="none" stroke="#6c63ff" stroke-width="2" opacity="0.3">
+      <animate attributeName="cy" values="500;250;500" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="200" cy="700" r="22" fill="none" stroke="#c8f135" stroke-width="2" opacity="0.2">
+      <animate attributeName="cy" values="700;350;700" dur="10s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.2;0.05;0.2" dur="10s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="350" cy="350" r="8" fill="none" stroke="white" stroke-width="1.5" opacity="0.2">
+      <animate attributeName="cy" values="350;100;350" dur="7s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Clothes floating -->
+    <g opacity="0.25">
+      <ellipse cx="60" cy="220" rx="22" ry="12" fill="#ff6b6b" transform="rotate(-20 60 220)">
+        <animate attributeName="cy" values="220;200;220" dur="4s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="370" cy="300" rx="18" ry="10" fill="#6c63ff" transform="rotate(15 370 300)">
+        <animate attributeName="cy" values="300;280;300" dur="5s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="390" cy="480" rx="20" ry="11" fill="#ffd93d" transform="rotate(-10 390 480)">
+        <animate attributeName="cy" values="480;460;480" dur="4.5s" repeatCount="indefinite"/>
+      </ellipse>
+    </g>
+  </svg>
 </div>
 
 <!-- LOGIN SCREEN -->
@@ -580,12 +670,64 @@
   </div>
 
   <div class="login-hero">
+    <!-- Cartoon Laundry Machine SVG -->
+    <div style="display:flex; justify-content:center; margin-bottom: 20px;">
+      <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Machine body -->
+        <rect x="20" y="30" width="140" height="130" rx="16" fill="#1f1f2b" stroke="#2a2a38" stroke-width="2"/>
+        <!-- Top panel -->
+        <rect x="20" y="30" width="140" height="35" rx="16" fill="#18181f" stroke="#2a2a38" stroke-width="2"/>
+        <rect x="20" y="52" width="140" height="13" fill="#18181f"/>
+        <!-- Control dots -->
+        <circle cx="50" cy="47" r="6" fill="#c8f135" opacity="0.9"/>
+        <circle cx="70" cy="47" r="4" fill="#6c63ff" opacity="0.7"/>
+        <circle cx="86" cy="47" r="4" fill="#ff4f4f" opacity="0.7"/>
+        <!-- Dial -->
+        <circle cx="130" cy="47" r="10" fill="#2a2a38" stroke="#c8f135" stroke-width="1.5"/>
+        <line x1="130" y1="38" x2="130" y2="43" stroke="#c8f135" stroke-width="2" stroke-linecap="round"/>
+        <!-- Door circle -->
+        <circle cx="90" cy="108" r="42" fill="#0e0e11" stroke="#2a2a38" stroke-width="3"/>
+        <circle cx="90" cy="108" r="35" fill="#13131a" stroke="#c8f135" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <!-- Drum inner -->
+        <circle cx="90" cy="108" r="26" fill="#0a0a0d"/>
+        <!-- Spinning clothes inside drum -->
+        <g style="transform-origin:90px 108px; animation: spinSlow 4s linear infinite">
+          <ellipse cx="90" cy="94" rx="10" ry="5" fill="#6c63ff" opacity="0.7" transform="rotate(0 90 108)"/>
+          <ellipse cx="90" cy="94" rx="8" ry="4" fill="#c8f135" opacity="0.5" transform="rotate(120 90 108)"/>
+          <ellipse cx="90" cy="94" rx="6" ry="3" fill="#ff4f4f" opacity="0.5" transform="rotate(240 90 108)"/>
+        </g>
+        <!-- Door handle -->
+        <rect x="118" y="105" width="8" height="6" rx="3" fill="#2a2a38" stroke="#6c63ff" stroke-width="1"/>
+        <!-- Bottom vents -->
+        <rect x="35" y="148" width="20" height="4" rx="2" fill="#2a2a38"/>
+        <rect x="62" y="148" width="20" height="4" rx="2" fill="#2a2a38"/>
+        <rect x="89" y="148" width="20" height="4" rx="2" fill="#2a2a38"/>
+        <!-- Bubbles floating up -->
+        <circle cx="60" cy="80" r="4" fill="none" stroke="#c8f135" stroke-width="1" opacity="0.4" style="animation: floatUp 3s ease-in infinite"/>
+        <circle cx="75" cy="65" r="3" fill="none" stroke="#6c63ff" stroke-width="1" opacity="0.4" style="animation: floatUp 3s ease-in 1s infinite"/>
+        <circle cx="110" cy="72" r="5" fill="none" stroke="#c8f135" stroke-width="1" opacity="0.3" style="animation: floatUp 3s ease-in 2s infinite"/>
+      </svg>
+    </div>
     <h1>Book your<br><span>laundry slot.</span></h1>
     <p>55 students, one machine. Let's keep it fair and organised.</p>
   </div>
 
   <div class="machine-visual">
-    <div class="machine-icon">🫧</div>
+    <div class="machine-icon">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <rect x="2" y="2" width="36" height="36" rx="8" fill="#0e0e11"/>
+        <rect x="2" y="2" width="36" height="10" rx="8" fill="#13131a"/>
+        <rect x="2" y="9" width="36" height="3" fill="#13131a"/>
+        <circle cx="10" cy="7" r="2" fill="#c8f135"/>
+        <circle cx="17" cy="7" r="1.5" fill="#6c63ff"/>
+        <circle cx="20" cy="22" r="11" fill="#0a0a0d" stroke="#c8f135" stroke-width="1.2"/>
+        <circle cx="20" cy="22" r="7" fill="#13131a"/>
+        <circle cx="20" cy="22" r="4" fill="#0e0e11"/>
+        <ellipse cx="20" cy="18" rx="3" ry="1.5" fill="#6c63ff" opacity="0.6"/>
+        <rect cx="30" cy="6" width="6" height="6" rx="3" fill="#2a2a38"/>
+        <circle cx="30" cy="7" r="3" fill="#2a2a38" stroke="#c8f135" stroke-width="0.8"/>
+      </svg>
+    </div>
     <div class="machine-info">
       <h3>Room 1 — Laundry</h3>
       <p><span class="status-dot"></span>Machine online</p>
@@ -633,7 +775,15 @@
 
     <!-- Key Status Banner -->
     <div class="key-banner no-key" id="key-banner">
-      <div class="key-icon">🔑</div>
+      <div class="key-icon">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <circle cx="13" cy="15" r="7" fill="none" stroke="#c8f135" stroke-width="2.5"/>
+          <circle cx="13" cy="15" r="3" fill="#c8f135" opacity="0.4"/>
+          <line x1="20" y1="20" x2="30" y2="30" stroke="#c8f135" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="26" y1="26" x2="26" y2="30" stroke="#c8f135" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="29" y1="29" x2="29" y2="33" stroke="#c8f135" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
       <div class="key-info">
         <h4 id="key-banner-title">Key Available</h4>
         <p id="key-banner-sub">No one currently has the key</p>
@@ -645,12 +795,28 @@
       <div class="section-title">Quick Actions</div>
       <div class="action-grid">
         <div class="action-card return" onclick="showReturnModal()">
-          <div class="action-icon">🔓</div>
+          <div class="action-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <circle cx="18" cy="18" r="16" fill="#ffb34720" stroke="#ffb347" stroke-width="1.5"/>
+              <path d="M12 18 L18 12 L24 18" stroke="#ffb347" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M18 12 L18 24" stroke="#ffb347" stroke-width="2" stroke-linecap="round"/>
+              <path d="M11 26 L25 26" stroke="#ffb347" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
           <div class="action-label">Return Key</div>
           <div class="action-sub">Done with laundry</div>
         </div>
         <div class="action-card confirm" onclick="showConfirmModal()">
-          <div class="action-icon">✅</div>
+          <div class="action-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <circle cx="18" cy="18" r="16" fill="#c8f13520" stroke="#c8f135" stroke-width="1.5"/>
+              <!-- Key shape -->
+              <circle cx="14" cy="16" r="5" fill="none" stroke="#c8f135" stroke-width="2"/>
+              <line x1="19" y1="19" x2="26" y2="26" stroke="#c8f135" stroke-width="2" stroke-linecap="round"/>
+              <line x1="23" y1="23" x2="23" y2="26" stroke="#c8f135" stroke-width="2" stroke-linecap="round"/>
+              <line x1="25" y1="25" x2="25" y2="28" stroke="#c8f135" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
           <div class="action-label">Got the Key</div>
           <div class="action-sub">Starting my slot</div>
         </div>
@@ -662,7 +828,16 @@
       <div class="section-title">This Week's Schedule</div>
       <div class="schedule-list" id="schedule-list">
         <div class="empty-state">
-          <div class="empty-icon">📋</div>
+          <svg width="56" height="56" viewBox="0 0 64 64" fill="none" style="margin-bottom:8px">
+            <rect x="8" y="12" width="48" height="44" rx="8" fill="#1f1f2b" stroke="#2a2a38" stroke-width="1.5"/>
+            <rect x="8" y="12" width="48" height="14" rx="8" fill="#18181f"/>
+            <rect x="8" y="22" width="48" height="4" fill="#18181f"/>
+            <circle cx="20" cy="19" r="3" fill="#c8f135" opacity="0.6"/>
+            <circle cx="30" cy="19" r="2" fill="#6c63ff" opacity="0.6"/>
+            <circle cx="32" cy="38" r="14" fill="#0e0e11" stroke="#2a2a38" stroke-width="1.5"/>
+            <circle cx="32" cy="38" r="10" fill="#13131a" stroke="#c8f135" stroke-width="1" stroke-dasharray="3 2"/>
+            <circle cx="32" cy="38" r="5" fill="#0a0a0d"/>
+          </svg>
           No bookings yet today
         </div>
       </div>
@@ -697,7 +872,16 @@
       <div class="section-title">All Upcoming Bookings</div>
       <div class="schedule-list" id="all-bookings-list">
         <div class="empty-state">
-          <div class="empty-icon">🗓️</div>
+          <svg width="56" height="56" viewBox="0 0 64 64" fill="none" style="margin-bottom:8px">
+            <rect x="10" y="8" width="44" height="48" rx="6" fill="#1f1f2b" stroke="#2a2a38" stroke-width="1.5"/>
+            <rect x="10" y="8" width="44" height="14" rx="6" fill="#18181f"/>
+            <rect x="10" y="18" width="44" height="4" fill="#18181f"/>
+            <circle cx="20" cy="15" r="3" fill="#6c63ff" opacity="0.7"/>
+            <circle cx="44" cy="15" r="3" fill="#6c63ff" opacity="0.7"/>
+            <rect x="18" y="28" width="28" height="3" rx="1.5" fill="#2a2a38"/>
+            <rect x="18" y="35" width="20" height="3" rx="1.5" fill="#2a2a38"/>
+            <rect x="18" y="42" width="24" height="3" rx="1.5" fill="#2a2a38"/>
+          </svg>
           No upcoming bookings
         </div>
       </div>
@@ -710,8 +894,18 @@
       <div class="section-title">Incident Log</div>
       <div id="incident-list" style="display: flex; flex-direction: column; gap: 8px;">
         <div class="empty-state">
-          <div class="empty-icon">🎉</div>
-          No incidents recorded
+          <svg width="56" height="56" viewBox="0 0 64 64" fill="none" style="margin-bottom:8px">
+            <circle cx="32" cy="32" r="22" fill="#1f1f2b" stroke="#c8f135" stroke-width="1.5"/>
+            <path d="M20 34 Q32 20 44 34" stroke="#c8f135" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <circle cx="24" cy="28" r="3" fill="#c8f135" opacity="0.7"/>
+            <circle cx="40" cy="28" r="3" fill="#c8f135" opacity="0.7"/>
+            <circle cx="14" cy="16" r="2" fill="#6c63ff" opacity="0.6"/>
+            <circle cx="50" cy="12" r="3" fill="#c8f135" opacity="0.5"/>
+            <circle cx="52" cy="22" r="1.5" fill="#ff4f4f" opacity="0.5"/>
+            <circle cx="10" cy="26" r="1.5" fill="#ffb347" opacity="0.5"/>
+          </svg>
+          No incidents this week 🎉
+        </div>
         </div>
       </div>
     </div>
@@ -735,10 +929,7 @@
             <div class="stat-label">Incidents</div>
           </div>
         </div>
-      </div>
-
-      <div style="margin-top: 16px;">
-        <button class="btn btn-outline" onclick="logout()">Sign Out</button>
+        <button class="btn btn-outline" onclick="logout()" style="width:100%; margin-top: 8px;">Sign Out</button>
       </div>
     </div>
   </div>
@@ -828,6 +1019,7 @@
 
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app-screen').style.display = 'block';
+    document.querySelector('.bottom-nav').style.display = 'flex';
     initApp();
   }
 
@@ -836,6 +1028,7 @@
     localStorage.removeItem('lbUser');
     document.getElementById('app-screen').style.display = 'none';
     document.getElementById('login-screen').style.display = 'block';
+    document.querySelector('.bottom-nav').style.display = 'none';
   }
 
   // ── INIT ───────────────────────────────────────────────
@@ -1099,6 +1292,7 @@
 
   // ── TABS ───────────────────────────────────────────────
   function switchTab(name, el) {
+    if (!currentUser) return;
     document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.getElementById(`tab-${name}`).classList.add('active');
@@ -1122,6 +1316,7 @@
     currentUser = JSON.parse(saved);
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app-screen').style.display = 'block';
+    document.querySelector('.bottom-nav').style.display = 'flex';
     initApp();
   }
 </script>
