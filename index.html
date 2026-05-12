@@ -741,7 +741,7 @@
 
   <div class="form-group">
     <label>Room Number</label>
-    <input type="number" id="login-room" placeholder="e.g. 100">
+    <input type="text" id="login-room" placeholder="e.g. 100">
   </div>
 
   <div class="form-group">
@@ -1094,7 +1094,11 @@
     if (!date || !start || !end) return showToast('Please fill in all fields', 'error');
     if (start >= end) return showToast('End time must be after start time', 'error');
 
+    // max 2 hour slot
     const startDT = new Date(`${date}T${start}`);
+    const endDT = new Date(`${date}T${end}`);
+    const durationHours = (endDT - startDT) / (1000 * 60 * 60);
+    if (durationHours > 2) return showToast('Maximum booking duration is 2 hours', 'error');
     if (startDT < new Date()) return showToast('Cannot book a slot in the past', 'error');
 
     showToast('Booking...', 'info');
@@ -1115,6 +1119,18 @@
       showToast('Slot already taken', 'error');
     } else if (result.result === 'LIMIT_REACHED') {
       showToast('You have reached your 4 bookings limit this week', 'error');
+    }
+  }
+
+  // ── DELETE BOOKING ─────────────────────────────────────
+  async function deleteBooking(id) {
+    const res = await fetch(`${API}/book/${id}`, { method: 'DELETE' });
+    const result = await res.json();
+    if (result.result === 'OK') {
+      showToast('Booking cancelled ✓', 'success');
+      await refreshData();
+    } else {
+      showToast('Could not cancel booking', 'error');
     }
   }
 
@@ -1212,7 +1228,10 @@
           <div class="slot-card ${cls}">
             <div class="slot-time">${b.startTime} – ${b.endTime}</div>
             <div class="slot-user">${b.userName} · Rm ${b.userRoom}<br><span style="font-size:11px;color:var(--muted);font-family:'Space Mono',monospace">${b.userTg}</span></div>
-            <div class="slot-status ${statusCls}">${statusLabel}</div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+              <div class="slot-status ${statusCls}">${statusLabel}</div>
+              ${isMine && !isActive ? `<span onclick="deleteBooking('${b.id}')" style="font-size:10px;color:var(--danger);cursor:pointer;font-family:'Space Mono',monospace">✕ cancel</span>` : ''}
+            </div>
           </div>`;
       }).join('');
       return `<div style="margin-bottom:12px"><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">${dateLabel}</div>${slotCards}</div>`;
@@ -1249,7 +1268,7 @@
           <div class="slot-card ${isMine ? 'mine' : ''}">
             <div class="slot-time">${b.startTime} – ${b.endTime}</div>
             <div class="slot-user">${b.userName} · Rm ${b.userRoom}<br><span style="font-size:11px;color:var(--muted);font-family:'Space Mono',monospace">${b.userTg}</span></div>
-            ${isMine ? `<div class="slot-status mine">mine</div>` : ''}
+            ${isMine ? `<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><div class="slot-status mine">mine</div><span onclick="deleteBooking('${b.id}')" style="font-size:10px;color:var(--danger);cursor:pointer;font-family:'Space Mono',monospace">✕ cancel</span></div>` : ''}
           </div>`;
       }).join('');
       return `<div style="margin-bottom:12px"><div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">${dateLabel}</div>${slotCards}</div>`;
