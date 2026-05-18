@@ -54,7 +54,7 @@
   }
 
   .cartoon-bg svg {
-    opacity: 0.35;
+    opacity: 0.15;
   }
 
   .bg-animation {
@@ -391,7 +391,7 @@
   .nav-item.active .nav-icon { transform: scale(1.1); }
 
   /* TABS */
-  .tab-content { display: none; }
+  .tab-content { display: none; position: relative; z-index: 2; }
   .tab-content.active { display: block; }
 
   /* TOAST */
@@ -709,7 +709,7 @@
       </svg>
     </div>
     <h1>Book your<br><span>laundry slot.</span></h1>
-    <p>55 students, one machine. Let's keep it fair and organised.</p>
+    <p>55 students, two machines. Let's keep it fair and organised.</p>
   </div>
 
   <div class="machine-visual">
@@ -773,20 +773,40 @@
   <!-- HOME TAB -->
   <div class="tab-content active" id="tab-home">
 
-    <!-- Key Status Banner -->
-    <div class="key-banner no-key" id="key-banner">
-      <div class="key-icon">
-        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-          <circle cx="13" cy="15" r="7" fill="none" stroke="#c8f135" stroke-width="2.5"/>
-          <circle cx="13" cy="15" r="3" fill="#c8f135" opacity="0.4"/>
-          <line x1="20" y1="20" x2="30" y2="30" stroke="#c8f135" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="26" y1="26" x2="26" y2="30" stroke="#c8f135" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="29" y1="29" x2="29" y2="33" stroke="#c8f135" stroke-width="2.5" stroke-linecap="round"/>
-        </svg>
+    <!-- Key Status Banners -->
+    <div style="padding: 16px 20px 0; display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Key Status</div>
+      
+      <div class="key-banner no-key" id="key-banner-third">
+        <div class="key-icon">
+          <svg width="30" height="30" viewBox="0 0 36 36" fill="none">
+            <circle cx="13" cy="15" r="7" fill="none" stroke="#c8f135" stroke-width="2.5"/>
+            <circle cx="13" cy="15" r="3" fill="#c8f135" opacity="0.4"/>
+            <line x1="20" y1="20" x2="30" y2="30" stroke="#c8f135" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="26" y1="26" x2="26" y2="30" stroke="#c8f135" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="29" y1="29" x2="29" y2="33" stroke="#c8f135" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="key-info">
+          <h4 id="key-banner-title-third">3rd Floor — Key Available</h4>
+          <p id="key-banner-sub-third">No one currently has the key</p>
+        </div>
       </div>
-      <div class="key-info">
-        <h4 id="key-banner-title">Key Available</h4>
-        <p id="key-banner-sub">No one currently has the key</p>
+
+      <div class="key-banner no-key" id="key-banner-first">
+        <div class="key-icon">
+          <svg width="30" height="30" viewBox="0 0 36 36" fill="none">
+            <circle cx="13" cy="15" r="7" fill="none" stroke="#6c63ff" stroke-width="2.5"/>
+            <circle cx="13" cy="15" r="3" fill="#6c63ff" opacity="0.4"/>
+            <line x1="20" y1="20" x2="30" y2="30" stroke="#6c63ff" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="26" y1="26" x2="26" y2="30" stroke="#6c63ff" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="29" y1="29" x2="29" y2="33" stroke="#6c63ff" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="key-info">
+          <h4 id="key-banner-title-first">1st Floor — Key Available</h4>
+          <p id="key-banner-sub-first">No one currently has the key</p>
+        </div>
       </div>
     </div>
 
@@ -810,7 +830,6 @@
           <div class="action-icon">
             <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
               <circle cx="18" cy="18" r="16" fill="#c8f13520" stroke="#c8f135" stroke-width="1.5"/>
-              <!-- Key shape -->
               <circle cx="14" cy="16" r="5" fill="none" stroke="#c8f135" stroke-width="2"/>
               <line x1="19" y1="19" x2="26" y2="26" stroke="#c8f135" stroke-width="2" stroke-linecap="round"/>
               <line x1="23" y1="23" x2="23" y2="26" stroke="#c8f135" stroke-width="2" stroke-linecap="round"/>
@@ -823,10 +842,40 @@
       </div>
     </div>
 
-    <!-- Today's Schedule -->
+    <!-- This Week's Schedule -->
+    <div class="section" style="margin-bottom: 6px;">
+      <div class="section-title">3rd Floor — This Week</div>
+      <div class="schedule-list" id="schedule-list-third">
+        <div class="empty-state">
+          <svg width="56" height="56" viewBox="0 0 64 64" fill="none" style="margin-bottom:8px">
+            <rect x="8" y="12" width="48" height="44" rx="8" fill="#1f1f2b" stroke="#2a2a38" stroke-width="1.5"/>
+            <rect x="8" y="12" width="48" height="14" rx="8" fill="#18181f"/>
+            <rect x="8" y="22" width="48" height="4" fill="#18181f"/>
+            <circle cx="20" cy="19" r="3" fill="#c8f135" opacity="0.6"/>
+            <circle cx="32" cy="38" r="14" fill="#0e0e11" stroke="#2a2a38" stroke-width="1.5"/>
+            <circle cx="32" cy="38" r="10" fill="#13131a" stroke="#c8f135" stroke-width="1" stroke-dasharray="3 2"/>
+          </svg>
+          No bookings this week
+        </div>
+      </div>
+    </div>
+
     <div class="section" style="margin-bottom: 16px;">
-      <div class="section-title">This Week's Schedule</div>
-      <div class="schedule-list" id="schedule-list">
+      <div class="section-title">1st Floor — This Week</div>
+      <div class="schedule-list" id="schedule-list-first">
+        <div class="empty-state">
+          <svg width="56" height="56" viewBox="0 0 64 64" fill="none" style="margin-bottom:8px">
+            <rect x="8" y="12" width="48" height="44" rx="8" fill="#1f1f2b" stroke="#2a2a38" stroke-width="1.5"/>
+            <rect x="8" y="12" width="48" height="14" rx="8" fill="#18181f"/>
+            <rect x="8" y="22" width="48" height="4" fill="#18181f"/>
+            <circle cx="20" cy="19" r="3" fill="#6c63ff" opacity="0.6"/>
+            <circle cx="32" cy="38" r="14" fill="#0e0e11" stroke="#2a2a38" stroke-width="1.5"/>
+            <circle cx="32" cy="38" r="10" fill="#13131a" stroke="#6c63ff" stroke-width="1" stroke-dasharray="3 2"/>
+          </svg>
+          No bookings this week
+        </div>
+      </div>
+    </div>
         <div class="empty-state">
           <svg width="56" height="56" viewBox="0 0 64 64" fill="none" style="margin-bottom:8px">
             <rect x="8" y="12" width="48" height="44" rx="8" fill="#1f1f2b" stroke="#2a2a38" stroke-width="1.5"/>
@@ -850,6 +899,13 @@
     <div class="section">
       <div class="section-title">New Booking</div>
       <div class="book-card">
+        <div class="form-group">
+          <label>Machine</label>
+          <select id="book-machine">
+            <option value="Third Floor">3rd Floor</option>
+            <option value="First Floor">1st Floor</option>
+          </select>
+        </div>
         <div class="form-group">
           <label>Date</label>
           <input type="date" id="book-date">
@@ -960,8 +1016,11 @@
   <div class="modal">
     <div class="modal-handle"></div>
     <h3>Return the Key 🔓</h3>
-    <p>Confirm that you have physically returned the key to reception before pressing the button below.</p>
-    <button class="btn btn-warn" onclick="returnKey()">I've Returned the Key</button>
+    <p>Which machine are you returning the key for?</p>
+    <div style="display:flex;gap:10px;margin-bottom:4px">
+      <button class="btn btn-outline" style="flex:1" onclick="selectReturnMachine('Third Floor')">3rd Floor</button>
+      <button class="btn btn-outline" style="flex:1" onclick="selectReturnMachine('First Floor')">1st Floor</button>
+    </div>
     <button class="btn btn-outline" onclick="closeModal('return-modal')">Cancel</button>
   </div>
 </div>
@@ -970,10 +1029,16 @@
 <div class="modal-overlay" id="confirm-modal">
   <div class="modal">
     <div class="modal-handle"></div>
-    <h3>Confirm Key Receipt ✅</h3>
-    <p>Did you physically receive the key from reception for your slot?</p>
-    <button class="btn btn-primary" onclick="confirmKey(true)">Yes, I Have the Key</button>
-    <button class="btn btn-danger" onclick="confirmKey(false)">No — Key Not There</button>
+    <h3>Got the Key ✅</h3>
+    <p>Which machine are you using?</p>
+    <div style="display:flex;gap:10px;margin-bottom:8px">
+      <button class="btn btn-outline" style="flex:1" onclick="selectConfirmMachine('Third Floor')">3rd Floor</button>
+      <button class="btn btn-outline" style="flex:1" onclick="selectConfirmMachine('First Floor')">1st Floor</button>
+    </div>
+    <div id="confirm-key-buttons" style="display:none;flex-direction:column;gap:10px">
+      <button class="btn btn-primary" onclick="confirmKey(true)">Yes, I Have the Key</button>
+      <button class="btn btn-danger" onclick="confirmKey(false)">No — Key Not There</button>
+    </div>
     <button class="btn btn-outline" onclick="closeModal('confirm-modal')">Cancel</button>
   </div>
 </div>
@@ -988,11 +1053,14 @@
   let currentUser = null;
   let bookings = [];
   let incidents = [];
-  let keyHolder = null;
+  let keyHolderThird = null;
+  let keyHolderFirst = null;
+  let selectedMachine = null;
 
   // ── API HELPERS ────────────────────────────────────────
   async function apiFetch(path) {
     const res = await fetch(API + path);
+    if (!res.ok) return null;
     return res.json();
   }
 
@@ -1047,41 +1115,45 @@
 
   async function refreshData() {
     try {
-      [bookings, incidents, keyHolder] = await Promise.all([
+      [bookings, incidents, keyHolderThird, keyHolderFirst] = await Promise.all([
         apiFetch('/bookings'),
         apiFetch('/incidents'),
-        apiFetch('/keyholder').catch(() => null)
+        apiFetch('/keyholder/Third%20Floor').catch(() => null),
+        apiFetch('/keyholder/First%20Floor').catch(() => null)
       ]);
     } catch(e) {
       showToast('Connection error', 'error');
     }
-    updateKeyBanner();
+    updateKeyBanners();
     renderSchedule();
     renderAllBookings();
     renderIncidents();
     updateStats();
   }
 
-  // ── KEY BANNER ─────────────────────────────────────────
-  function updateKeyBanner() {
-    const banner = document.getElementById('key-banner');
-    const title = document.getElementById('key-banner-title');
-    const sub = document.getElementById('key-banner-sub');
+  // ── KEY BANNERS ────────────────────────────────────────
+  function updateKeyBanners() {
+    updateSingleBanner('third', keyHolderThird, '3rd Floor');
+    updateSingleBanner('first', keyHolderFirst, '1st Floor');
+  }
 
+  function updateSingleBanner(floor, holder, label) {
+    const banner = document.getElementById(`key-banner-${floor}`);
+    const title = document.getElementById(`key-banner-title-${floor}`);
+    const sub = document.getElementById(`key-banner-sub-${floor}`);
     banner.className = 'key-banner';
-
-    if (!keyHolder || !keyHolder.userName) {
+    if (!holder || !holder.userName) {
       banner.classList.add('no-key');
-      title.textContent = 'Key Available';
+      title.textContent = `${label} — Key Available`;
       sub.textContent = 'No one currently has the key';
-    } else if (keyHolder.userName === currentUser?.name) {
+    } else if (holder.userName === currentUser?.name) {
       banner.classList.add('has-key');
-      title.textContent = 'You Have the Key 🔑';
+      title.textContent = `${label} — You Have the Key 🔑`;
       sub.textContent = 'Remember to return it on time';
     } else {
       banner.classList.add('issue');
-      title.textContent = `Key with ${keyHolder.userName}`;
-      sub.textContent = `Room ${keyHolder.userRoom} · ${keyHolder.userTg}`;
+      title.textContent = `${label} — Key with ${holder.userName}`;
+      sub.textContent = `Room ${holder.userRoom} · ${holder.userTg}`;
     }
   }
 
@@ -1103,12 +1175,15 @@
 
     showToast('Booking...', 'info');
 
+    const machineName = document.getElementById('book-machine').value;
+
     const result = await apiPost('/book', {
       userName: currentUser.name,
       userRoom: currentUser.room,
       userTg: currentUser.tg,
       userChatId: currentUser.chatId,
-      date, startTime: start, endTime: end
+      date, startTime: start, endTime: end,
+      machineName
     });
 
     if (result.result === 'OK') {
@@ -1135,24 +1210,35 @@
   }
 
   // ── RETURN KEY ─────────────────────────────────────────
-  async function returnKey() {
+  function selectReturnMachine(machine) {
+    selectedMachine = machine;
     closeModal('return-modal');
-    const result = await apiPost('/returnkey', { userChatId: currentUser.chatId });
+    returnKey();
+  }
+
+  async function returnKey() {
+    const result = await apiPost('/returnkey', { userChatId: currentUser.chatId, machineName: selectedMachine });
     if (result.result === 'OK') {
       showToast('Key marked as returned ✓', 'success');
       await refreshData();
     } else if (result.result === 'NOT_YOUR_KEY') {
-      showToast('You do not currently have the key', 'error');
+      showToast('You do not currently have the key for this machine', 'error');
     } else {
-      showToast('No key currently assigned', 'error');
+      showToast('No key currently assigned to this machine', 'error');
     }
   }
 
   // ── CONFIRM KEY ────────────────────────────────────────
+  function selectConfirmMachine(machine) {
+    selectedMachine = machine;
+    document.getElementById('confirm-key-buttons').style.display = 'flex';
+  }
+
   async function confirmKey(received) {
     closeModal('confirm-modal');
+    document.getElementById('confirm-key-buttons').style.display = 'none';
 
-    const endTime = getMyCurrentSlotEndTime();
+    const endTime = getMyCurrentSlotEndTime(selectedMachine);
 
     const result = await apiPost('/startbooking', {
       userName: currentUser.name,
@@ -1160,38 +1246,41 @@
       userTg: currentUser.tg,
       userChatId: currentUser.chatId,
       endTime: endTime,
-      keyReceived: String(received)
+      keyReceived: String(received),
+      machineName: selectedMachine
     });
 
     if (received) {
-      showToast('Key confirmed — enjoy your laundry! 🫧', 'success');
+      showToast(`Key confirmed for ${selectedMachine} 🫧`, 'success');
     } else {
       showToast('Incident logged against previous user', 'error');
     }
     await refreshData();
   }
 
-  function getMyCurrentSlotEndTime() {
+  function getMyCurrentSlotEndTime(machine) {
     const now = new Date();
     const mySlot = bookings.find(b =>
       b.userName === currentUser.name &&
+      b.machineName === machine &&
       new Date(`${b.date}T${b.startTime}`) <= now &&
       new Date(`${b.date}T${b.endTime}`) >= now
     );
     if (mySlot) return `${mySlot.date}T${mySlot.endTime}`;
-    
-    // find next upcoming slot
     const nextSlot = bookings
-      .filter(b => b.userName === currentUser.name && new Date(`${b.date}T${b.startTime}`) > now)
+      .filter(b => b.userName === currentUser.name && b.machineName === machine && new Date(`${b.date}T${b.startTime}`) > now)
       .sort((a, b) => new Date(`${a.date}T${a.startTime}`) - new Date(`${b.date}T${b.startTime}`))[0];
     if (nextSlot) return `${nextSlot.date}T${nextSlot.endTime}`;
-
-    // fallback: 30 minutes from now
     return new Date(now.getTime() + 30 * 60 * 1000).toISOString().slice(0, 16);
   }
 
   // ── RENDER SCHEDULE ────────────────────────────────────
   function renderSchedule() {
+    renderMachineSchedule('Third Floor', 'schedule-list-third');
+    renderMachineSchedule('First Floor', 'schedule-list-first');
+  }
+
+  function renderMachineSchedule(machine, listId) {
     const now = new Date();
     const weekEnd = new Date(now);
     weekEnd.setDate(weekEnd.getDate() + 7);
@@ -1199,14 +1288,16 @@
     const weekBookings = bookings
       .filter(b => {
         const bDate = new Date(`${b.date}T${b.startTime}`);
-        return bDate >= new Date(now.toISOString().split('T')[0]) && bDate <= weekEnd;
+        return b.machineName === machine &&
+               bDate >= new Date(now.toISOString().split('T')[0]) &&
+               bDate <= weekEnd;
       })
       .sort((a, b) => (a.date + a.startTime).localeCompare(b.date + b.startTime));
 
-    const list = document.getElementById('schedule-list');
+    const list = document.getElementById(listId);
 
     if (weekBookings.length === 0) {
-      list.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div>No bookings this week</div>`;
+      list.innerHTML = `<div class="empty-state" style="padding:16px"><div style="font-size:12px;color:var(--muted)">No bookings this week</div></div>`;
       return;
     }
 
@@ -1266,7 +1357,7 @@
         const isMine = b.userName === currentUser.name;
         return `
           <div class="slot-card ${isMine ? 'mine' : ''}">
-            <div class="slot-time">${b.startTime} – ${b.endTime}</div>
+            <div class="slot-time">${b.startTime} – ${b.endTime}<br><span style="font-size:10px;color:var(--muted)">${b.machineName || ''}</span></div>
             <div class="slot-user">${b.userName} · Rm ${b.userRoom}<br><span style="font-size:11px;color:var(--muted);font-family:'Space Mono',monospace">${b.userTg}</span></div>
             ${isMine ? `<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><div class="slot-status mine">mine</div><span onclick="deleteBooking('${b.id}')" style="font-size:10px;color:var(--danger);cursor:pointer;font-family:'Space Mono',monospace">✕ cancel</span></div>` : ''}
           </div>`;
@@ -1309,6 +1400,8 @@
       new Date(`${b.date}T${b.endTime}`) >= now
     );
     if (!hasBooking) return showToast('You need a booking to request the key', 'error');
+    selectedMachine = null;
+    document.getElementById('confirm-key-buttons').style.display = 'none';
     document.getElementById('confirm-modal').classList.add('show');
   }
   function closeModal(id) { document.getElementById(id).classList.remove('show'); }
